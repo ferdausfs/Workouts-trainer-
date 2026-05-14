@@ -88,23 +88,32 @@ class _BodyMapScreenState extends ConsumerState<BodyMapScreen>
   }
 
   void _handleTap(TapDownDetails d, BuildContext context) {
-    final box = context.findRenderObject() as RenderBox;
+    final box = context.findRenderObject();
+    if (box is! RenderBox) return;
     final size = box.size;
+    if (size.width == 0 || size.height == 0) return;
     final x = d.localPosition.dx / size.width;
     final y = d.localPosition.dy / size.height;
 
     // Simple zone detection on body silhouette (front view)
     MuscleGroup? hit;
-    if (y < 0.10) hit = null; // head
-    else if (y < 0.18) hit = MuscleGroup.shoulders;
-    else if (y < 0.30) hit = MuscleGroup.chest;
-    else if (y < 0.42) {
+    if (y < 0.10) {
+      hit = null; // head
+    } else if (y < 0.18) {
+      hit = MuscleGroup.shoulders;
+    } else if (y < 0.30) {
+      hit = MuscleGroup.chest;
+    } else if (y < 0.42) {
       hit = (x < 0.4 || x > 0.6) ? MuscleGroup.biceps : MuscleGroup.abs;
+    } else if (y < 0.55) {
+      hit = MuscleGroup.abs;
+    } else if (y < 0.72) {
+      hit = MuscleGroup.quads;
+    } else if (y < 0.92) {
+      hit = MuscleGroup.calves;
+    } else {
+      return;
     }
-    else if (y < 0.55) hit = MuscleGroup.abs;
-    else if (y < 0.72) hit = MuscleGroup.quads;
-    else if (y < 0.92) hit = MuscleGroup.calves;
-    else return;
 
     setState(() => _selected = hit);
   }
@@ -232,6 +241,7 @@ class _BodyPainter extends CustomPainter {
         ..color = _colorFor(selected!).withOpacity(0.45 + pulse * 0.25)
         ..style = PaintingStyle.fill
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4 + pulse * 4);
+
 
       switch (selected!) {
         case MuscleGroup.chest:

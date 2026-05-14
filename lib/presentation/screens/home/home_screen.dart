@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../controllers/user_controller.dart';
 import '../../controllers/workout_controller.dart';
@@ -11,6 +10,7 @@ import '../../widgets/common/animated_gradient_background.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/utils/calculators.dart';
 import '../../../domain/entities/workout.dart';
+import '../../../domain/entities/user_profile.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -45,7 +45,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _header(BuildContext context, user) {
+  Widget _header(BuildContext context, UserProfile user) {
     final hour = DateTime.now().hour;
     final greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
     return Padding(
@@ -74,7 +74,7 @@ class HomeScreen extends ConsumerWidget {
                 gradient: AppColors.primaryGradient,
               ),
               alignment: Alignment.center,
-              child: Text(user.name[0].toUpperCase(),
+              child: Text(user.name.isNotEmpty ? user.name[0].toUpperCase() : 'A',
                   style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 22)),
             ),
           ),
@@ -83,7 +83,7 @@ class HomeScreen extends ConsumerWidget {
     ).animate().fadeIn().slideY(begin: -0.1);
   }
 
-  Widget _todayCard(BuildContext context, plan, int calTarget) {
+  Widget _todayCard(BuildContext context, WorkoutPlan? plan, int calTarget) {
     final workout = plan?.workouts.isNotEmpty == true ? plan!.workouts[0] : null;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -157,7 +157,7 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  Widget _quickStats(BuildContext context, user, double bmr, double tdee) {
+  Widget _quickStats(BuildContext context, UserProfile user, double bmr, double tdee) {
     final bmi = Calculators.bmi(user.weightKg, user.heightCm);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -189,7 +189,7 @@ class HomeScreen extends ConsumerWidget {
     ).animate().fadeIn(delay: Duration(milliseconds: 300 + delayMs)).slideY(begin: 0.2);
   }
 
-  Widget _planList(BuildContext context, plan) {
+  Widget _planList(BuildContext context, WorkoutPlan? plan) {
     if (plan == null) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
@@ -206,7 +206,7 @@ class HomeScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           ...List.generate(plan.workouts.length, (i) {
-            final w = plan.workouts[i] as Workout;
+            final w = plan.workouts[i];
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: GlassCard(

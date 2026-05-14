@@ -103,13 +103,17 @@ class ProgressScreen extends ConsumerWidget {
           LineChartBarData(
             spots: List.generate(data.length, (i) => FlSpot(i.toDouble(), data[i])),
             isCurved: true,
-            gradient: AppColors.primaryGradient,
+            color: AppColors.pulseCyan,
             barWidth: 4,
             dotData: const FlDotData(show: true),
-            belowBarData: BarAreaData(show: true, gradient: LinearGradient(
-              begin: Alignment.topCenter, end: Alignment.bottomCenter,
-              colors: [AppColors.pulseCyan.withOpacity(0.3), AppColors.pulseCyan.withOpacity(0)],
-            )),
+            belowBarData: BarAreaData(
+              show: true,
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.pulseCyan.withOpacity(0.3), AppColors.pulseCyan.withOpacity(0)],
+              ),
+            ),
           ),
         ],
       ),
@@ -137,7 +141,11 @@ class ProgressScreen extends ConsumerWidget {
           x: i,
           barRods: [BarChartRodData(
             toY: values[i].toDouble(),
-            gradient: AppColors.primaryGradient,
+            gradient: const LinearGradient(
+              colors: [AppColors.pulseCyan, AppColors.auroraViolet],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+            ),
             width: 18,
             borderRadius: BorderRadius.circular(8),
           )],

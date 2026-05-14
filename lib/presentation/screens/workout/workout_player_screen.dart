@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -75,6 +76,7 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
 
   Future<void> _finish() async {
     _timer?.cancel();
+    if (!mounted) return;
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -115,7 +117,7 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
     final ex = _current;
     final totalSets = widget.workout.exercises.fold<int>(0, (s, e) => s + e.sets);
     final doneSets = widget.workout.exercises.take(_exIndex).fold<int>(0, (s, e) => s + e.sets) + (_set - 1);
-    final progress = doneSets / totalSets;
+    final progress = totalSets == 0 ? 0.0 : doneSets / totalSets;
 
     return Scaffold(
       body: AnimatedGradientBackground(
@@ -128,7 +130,7 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: LinearProgressIndicator(
-                    value: progress,
+                    value: progress.clamp(0.0, 1.0),
                     minHeight: 8,
                     backgroundColor: Colors.white12,
                     valueColor: const AlwaysStoppedAnimation(AppColors.pulseCyan),
@@ -143,7 +145,10 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
                   children: [
                     Text('Exercise ${_exIndex + 1}/${widget.workout.exercises.length}'),
                     Text('${(_elapsed ~/ 60).toString().padLeft(2, '0')}:${(_elapsed % 60).toString().padLeft(2, '0')}',
-                        style: const TextStyle(fontFeatures: [FontFeature.tabularFigures()], fontWeight: FontWeight.w700)),
+                        style: const TextStyle(
+                          fontFeatures: [FontFeature.tabularFigures()],
+                          fontWeight: FontWeight.w700,
+                        )),
                   ],
                 ),
               ),
@@ -171,8 +176,16 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
             icon: const Icon(Icons.close),
           ),
           const Spacer(),
-          Text(widget.workout.name,
-              style: const TextStyle(fontWeight: FontWeight.w700)),
+          Expanded(
+            flex: 3,
+            child: Text(
+              widget.workout.name,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w700),
+            ),
+          ),
           const Spacer(),
           IconButton(onPressed: () {}, icon: const Icon(Icons.music_note)),
         ],
@@ -193,7 +206,6 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  // Placeholder for Lottie/Rive animation
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(28),
@@ -213,9 +225,11 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
           ),
           const SizedBox(height: 24),
           Text(ex.exercise.name,
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
-          Text('Set $_set / ${ex.sets}', style: const TextStyle(color: AppColors.pulseCyan, fontSize: 16, fontWeight: FontWeight.w700)),
+          Text('Set $_set / ${ex.sets}',
+              style: const TextStyle(color: AppColors.pulseCyan, fontSize: 16, fontWeight: FontWeight.w700)),
           const SizedBox(height: 8),
           Text(
             ex.exercise.isTimed
@@ -241,7 +255,7 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
           CircularPercentIndicator(
             radius: 110,
             lineWidth: 14,
-            percent: pct.clamp(0, 1),
+            percent: pct.clamp(0.0, 1.0),
             progressColor: AppColors.pulseCyan,
             backgroundColor: Colors.white12,
             circularStrokeCap: CircularStrokeCap.round,
@@ -251,7 +265,7 @@ class _WorkoutPlayerScreenState extends ConsumerState<WorkoutPlayerScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          Text('Next: ${_set <= ex.sets ? ex.exercise.name : "next exercise"}',
+          Text('Next: ${ex.exercise.name}',
               style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 16),
           TextButton.icon(

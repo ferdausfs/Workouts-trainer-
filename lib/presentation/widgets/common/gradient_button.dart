@@ -53,7 +53,9 @@ class _GradientButtonState extends State<GradientButton>
   Widget build(BuildContext context) {
     final enabled = widget.onPressed != null && !widget.loading;
     return GestureDetector(
-      onTapDown: (_) => _ctrl.animateTo(0.95),
+      onTapDown: (_) {
+        if (enabled) _ctrl.animateTo(0.95);
+      },
       onTapUp: (_) => _ctrl.animateTo(1.0),
       onTapCancel: () => _ctrl.animateTo(1.0),
       onTap: enabled ? widget.onPressed : null,

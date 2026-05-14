@@ -168,7 +168,9 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          Row(
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
             children: [
               for (final amount in [250, 500, 750])
                 Padding(
@@ -192,6 +194,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen> {
       ),
     );
   }
+
 
   Widget _foodGrid() {
     return GridView.count(

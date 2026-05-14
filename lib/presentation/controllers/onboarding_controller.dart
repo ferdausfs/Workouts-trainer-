@@ -35,8 +35,22 @@ class OnboardingController extends StateNotifier<OnboardingData> {
   OnboardingController() : super(OnboardingData());
 
   void update(void Function(OnboardingData) updater) {
-    updater(state);
-    state = state; // force rebuild
+    final newData = OnboardingData(
+      name: state.name,
+      age: state.age,
+      weightKg: state.weightKg,
+      heightCm: state.heightCm,
+      gender: state.gender,
+      level: state.level,
+      goal: state.goal,
+      location: state.location,
+      activity: state.activity,
+      injuries: List<String>.from(state.injuries),
+      equipment: List<String>.from(state.equipment),
+      weeklyWorkoutDays: state.weeklyWorkoutDays,
+    );
+    updater(newData);
+    state = newData;
   }
 
   void reset() => state = OnboardingData();

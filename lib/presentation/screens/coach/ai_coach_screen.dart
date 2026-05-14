@@ -191,6 +191,19 @@ class _AICoachScreenState extends ConsumerState<AICoachScreen> {
     );
   }
 
+  String _stripLeadingEmoji(String s) {
+    // Strip leading non-letter (emoji + spaces) characters safely.
+    final runes = s.runes.toList();
+    int i = 0;
+    while (i < runes.length) {
+      final r = runes[i];
+      final isLetter = (r >= 0x41 && r <= 0x5A) || (r >= 0x61 && r <= 0x7A);
+      if (isLetter) break;
+      i++;
+    }
+    return String.fromCharCodes(runes.sublist(i)).trim();
+  }
+
   Widget _quickPromptsBar() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -199,7 +212,7 @@ class _AICoachScreenState extends ConsumerState<AICoachScreen> {
         children: _quickPrompts.map((p) => Padding(
           padding: const EdgeInsets.only(right: 8),
           child: GestureDetector(
-            onTap: () => _send(p.substring(2).trim()),
+            onTap: () => _send(_stripLeadingEmoji(p)),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
@@ -217,7 +230,7 @@ class _AICoachScreenState extends ConsumerState<AICoachScreen> {
 
   Widget _inputBar() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16, 8, 16, MediaQuery.of(context).padding.bottom + 90),
+      padding: EdgeInsets.fromLTRB(16, 8, 16, MediaQuery.of(context).padding.bottom + 16),
       child: Row(
         children: [
           Expanded(

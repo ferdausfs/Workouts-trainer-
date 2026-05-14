@@ -54,7 +54,8 @@ class ExerciseDetailScreen extends StatelessWidget {
                           children: [
                             _chip(exercise.difficulty.name.toUpperCase(), AppColors.coralGradient),
                             const SizedBox(width: 8),
-                            _chip(exercise.primaryMuscles.first.name.toUpperCase(), AppColors.primaryGradient),
+                            if (exercise.primaryMuscles.isNotEmpty)
+                              _chip(exercise.primaryMuscles.first.name.toUpperCase(), AppColors.primaryGradient),
                           ],
                         ),
                         const SizedBox(height: 16),

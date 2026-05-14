@@ -38,7 +38,7 @@ class SettingsScreen extends ConsumerWidget {
                       width: 64, height: 64,
                       decoration: const BoxDecoration(shape: BoxShape.circle, gradient: AppColors.primaryGradient),
                       alignment: Alignment.center,
-                      child: Text(user.name[0].toUpperCase(), style: const TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
+                      child: Text(user.name.isNotEmpty ? user.name[0].toUpperCase() : 'A', style: const TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w800)),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
