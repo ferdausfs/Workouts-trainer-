@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "foods": [
+    {"id":"f1","name":"Chicken Breast","caloriesPer100g":165,"proteinPer100g":31,"carbsPer100g":0,"fatPer100g":3.6,"category":"protein"},
+    {"id":"f2","name":"Brown Rice","caloriesPer100g":112,"proteinPer100g":2.6,"carbsPer100g":23,"fatPer100g":0.9,"category":"carbs"},
+    {"id":"f3","name":"Salmon","caloriesPer100g":208,"proteinPer100g":20,"carbsPer100g":0,"fatPer100g":13,"category":"protein"},
+    {"id":"f4","name":"Sweet Potato","caloriesPer100g":86,"proteinPer100g":1.6,"carbsPer100g":20,"fatPer100g":0.1,"category":"carbs"},
+    {"id":"f5","name":"Broccoli","caloriesPer100g":34,"proteinPer100g":2.8,"carbsPer100g":7,"fatPer100g":0.4,"category":"vegetable"},
+    {"id":"f6","name":"Avocado","caloriesPer100g":160,"proteinPer100g":2,"carbsPer100g":9,"fatPer100g":15,"category":"fat"},
+    {"id":"f7","name":"Eggs","caloriesPer100g":155,"proteinPer100g":13,"carbsPer100g":1.1,"fatPer100g":11,"category":"protein"},
+    {"id":"f8","name":"Oats","caloriesPer100g":389,"proteinPer100g":17,"carbsPer100g":66,"fatPer100g":7,"category":"carbs"}
+  ]
+}

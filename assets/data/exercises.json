@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "exercises": [
+    {
+      "id": "ex_pushup",
+      "name": "Push-Up",
+      "primaryMuscles": ["chest"],
+      "secondaryMuscles": ["triceps", "shoulders"],
+      "equipment": ["none"],
+      "difficulty": "beginner",
+      "mets": 8.0,
+      "defaultSets": 3,
+      "defaultReps": 12,
+      "instructions": [
+        "Start in plank position",
+        "Lower chest toward floor",
+        "Press back up"
+      ]
+    },
+    {
+      "id": "ex_squat",
+      "name": "Bodyweight Squat",
+      "primaryMuscles": ["quads", "glutes"],
+      "secondaryMuscles": ["hamstrings"],
+      "equipment": ["none"],
+      "difficulty": "beginner",
+      "mets": 6.0,
+      "defaultSets": 3,
+      "defaultReps": 15
+    },
+    {
+      "id": "ex_plank",
+      "name": "Plank",
+      "primaryMuscles": ["abs"],
+      "equipment": ["mat"],
+      "difficulty": "beginner",
+      "isTimed": true,
+      "defaultReps": 45
+    },
+    {
+      "id": "ex_burpee",
+      "name": "Burpee",
+      "primaryMuscles": ["fullBody", "cardio"],
+      "equipment": ["none"],
+      "difficulty": "advanced",
+      "mets": 10.0
+    },
+    {
+      "id": "ex_pullup",
+      "name": "Pull-Up",
+      "primaryMuscles": ["back"],
+      "secondaryMuscles": ["biceps"],
+      "equipment": ["pullUpBar"],
+      "difficulty": "advanced",
+      "mets": 8.0,
+      "defaultSets": 4,
+      "defaultReps": 8
+    }
+  ]
+}
