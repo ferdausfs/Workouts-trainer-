@@ -4,8 +4,8 @@ import '../../../core/theme/app_colors.dart';
 /// Animated pulse heart logo - original PulseFit AI branding.
 class PulseLogo extends StatefulWidget {
   final double size;
-  final bool animate;
-  const PulseLogo({super.key, this.size = 100, this.animate = true});
+  final bool enablePulse;
+  const PulseLogo({super.key, this.size = 100, this.enablePulse = true});
 
   @override
   State<PulseLogo> createState() => _PulseLogoState();
@@ -32,7 +32,7 @@ class _PulseLogoState extends State<PulseLogo> with SingleTickerProviderStateMix
     return AnimatedBuilder(
       animation: _ctrl,
       builder: (_, __) {
-        final scale = widget.animate ? 1.0 + (_ctrl.value * 0.08) : 1.0;
+        final scale = widget.enablePulse ? 1.0 + (_ctrl.value * 0.08) : 1.0;
         return Transform.scale(
           scale: scale,
           child: Container(
