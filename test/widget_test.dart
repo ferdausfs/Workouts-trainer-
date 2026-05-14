@@ -5,7 +5,7 @@ void main() {
   group('Calculators', () {
     test('BMR Mifflin-St Jeor — male', () {
       final bmr = Calculators.bmr(weightKg: 80, heightCm: 180, age: 25, gender: 'male');
-      expect(bmr, closeTo(1855, 1));
+      expect(bmr, closeTo(1805, 1));
     });
 
     test('BMR Mifflin-St Jeor — female', () {

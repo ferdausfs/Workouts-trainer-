@@ -41,7 +41,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const PulseLogo(size: 130)
+              PulseLogo(size: 130)
                   .animate()
                   .fadeIn(duration: 600.ms)
                   .scale(begin: 0.6, end: 1.0),
