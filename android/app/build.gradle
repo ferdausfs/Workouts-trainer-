@@ -24,8 +24,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.pulsefit.ai"
-    compileSdk 34
-    ndkVersion flutter.ndkVersion
+    compileSdk 35
+    ndkVersion "25.1.8937393"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -38,7 +38,7 @@ android {
     defaultConfig {
         applicationId "com.pulsefit.ai"
         minSdk 23
-        targetSdk 34
+        targetSdk 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

@@ -44,7 +44,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               PulseLogo(size: 130)
                   .animate()
                   .fadeIn(duration: 600.ms)
-                  .scale(begin: 0.6, end: 1.0),
+                  .scale(begin: const Offset(0.6, 0.6), end: const Offset(1.0, 1.0)),
               const SizedBox(height: 32),
               Text(
                 AppConstants.appName,
