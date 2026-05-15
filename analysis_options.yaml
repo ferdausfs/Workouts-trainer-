@@ -1,5 +1,13 @@
 include: package:flutter_lints/flutter.yaml
 
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_final_locals: true
+    avoid_print: true
+    use_key_in_widget_constructors: false
+
 analyzer:
   exclude:
     - "**/*.g.dart"
@@ -7,16 +15,3 @@ analyzer:
     - "build/**"
   errors:
     invalid_annotation_target: ignore
-    unused_import: warning
-    deprecated_member_use: ignore
-    deprecated_member_use_from_same_package: ignore
-
-linter:
-  rules:
-    avoid_print: false
-    prefer_const_constructors: true
-    prefer_const_literals_to_create_immutables: true
-    use_key_in_widget_constructors: true
-    prefer_single_quotes: false
-    avoid_unnecessary_containers: false
-    sized_box_for_whitespace: false

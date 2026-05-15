@@ -6,22 +6,12 @@
 -keep class io.flutter.** { *; }
 -keep class io.flutter.plugins.** { *; }
 
-# Hive / Local DB
+# Firebase
+-keep class com.google.firebase.** { *; }
+-keep class com.google.android.gms.** { *; }
+
+# Hive
 -keep class * extends io.flutter.embedding.engine.plugins.FlutterPlugin
 
-# Keep model classes
+# Keep models
 -keep class com.pulsefit.ai.** { *; }
-
-# Local notifications
--keep class com.dexterous.** { *; }
-
-# Audio players
--keep class xyz.luan.** { *; }
-
-# Video player
--keep class androidx.media3.** { *; }
-
-# Suppress warnings
--dontwarn org.bouncycastle.**
--dontwarn org.conscrypt.**
--dontwarn org.openjsse.**
