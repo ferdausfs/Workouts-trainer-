@@ -10,16 +10,16 @@
 .svn/
 migrate_working_dir/
 
-# IntelliJ
+# IntelliJ / Android Studio
 *.iml
 *.ipr
 *.iws
 .idea/
 
-# VSCode
+# VS Code
 .vscode/
 
-# Flutter/Dart/Pub
+# Flutter
 **/doc/api/
 **/ios/Flutter/.last_build_id
 .dart_tool/
@@ -29,28 +29,26 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+flutter_*.png
+linked_*.ds
+unlinked.ds
+unlinked_spec.ds
 
-# Symbolication related
-app.*.symbols
+# Symbols / generated
+**/*.freezed.dart
+**/*.g.dart
 
-# Obfuscation related
-app.*.map.json
-
-# Android Studio
-android/**/gradle-wrapper.jar
+# Android
+**/android/**/gradle-wrapper.jar
 .gradle/
-android/captures/
-android/gradlew
-android/gradlew.bat
-android/local.properties
-android/**/GeneratedPluginRegistrant.java
-android/key.properties
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
 *.jks
 
-# Firebase
-android/app/google-services.json
-ios/Runner/GoogleService-Info.plist
-lib/firebase_options.dart.local
-
-# Coverage
-coverage/
+# Secrets
+.env
+.env.local

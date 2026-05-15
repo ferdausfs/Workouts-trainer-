@@ -48,22 +48,18 @@ class SettingsScreen extends ConsumerWidget {
                           Text(user.name, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w800)),
                           Text('${user.age} y • ${user.weightKg.toInt()} kg • ${user.heightCm.toInt()} cm',
                               style: const TextStyle(color: Colors.grey)),
-                          if (!user.isPremium)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: GestureDetector(
-                                onTap: () => context.push('/paywall'),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.coralGradient,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: const Text('UPGRADE TO PRO',
-                                      style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w800, letterSpacing: 1.2)),
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
+                                gradient: AppColors.coralGradient,
+                                borderRadius: BorderRadius.circular(20),
                               ),
+                              child: const Text('PERSONAL EDITION',
+                                  style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w800, letterSpacing: 1.2)),
                             ),
+                          ),
                         ],
                       ),
                     ),

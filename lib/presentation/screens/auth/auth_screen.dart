@@ -8,6 +8,8 @@ import '../../widgets/common/gradient_button.dart';
 import '../../widgets/common/pulse_logo.dart';
 import '../../../core/theme/app_colors.dart';
 
+/// Local-only auth screen.
+/// No Google / Apple / Firebase sign-in — purely a local "get started" flow.
 class AuthScreen extends ConsumerStatefulWidget {
   const AuthScreen({super.key});
 
@@ -18,9 +20,9 @@ class AuthScreen extends ConsumerStatefulWidget {
 class _AuthScreenState extends ConsumerState<AuthScreen> {
   bool _loading = false;
 
-  Future<void> _signInGuest() async {
+  Future<void> _continueLocal() async {
     setState(() => _loading = true);
-    await Future.delayed(const Duration(milliseconds: 600));
+    await Future.delayed(const Duration(milliseconds: 400));
     if (!mounted) return;
     context.go('/onboarding');
   }
@@ -39,44 +41,33 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 const SizedBox(height: 24),
                 Text('Welcome to PulseFit',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    )).animate().fadeIn().slideY(begin: 0.2),
+                          fontWeight: FontWeight.w800,
+                        )).animate().fadeIn().slideY(begin: 0.2),
                 const SizedBox(height: 8),
-                Text('Sign in to sync your progress everywhere',
-                    style: Theme.of(context).textTheme.bodyMedium)
-                    .animate().fadeIn(delay: 200.ms),
+                Text('100% offline — your data stays on your device',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        textAlign: TextAlign.center)
+                    .animate()
+                    .fadeIn(delay: 200.ms),
                 const Spacer(),
-                _authBtn('Continue with Google', Icons.g_mobiledata, Colors.white, Colors.black,
-                    () => _signInGuest()).animate().fadeIn(delay: 300.ms).slideY(begin: 0.2),
+                _featureRow(Icons.lock_outline, 'Private — no account needed'),
                 const SizedBox(height: 12),
-                _authBtn('Continue with Apple', Icons.apple, Colors.black, Colors.white,
-                    () => _signInGuest()).animate().fadeIn(delay: 400.ms).slideY(begin: 0.2),
+                _featureRow(Icons.cloud_off_outlined, 'No internet required'),
                 const SizedBox(height: 12),
-                _authBtn('Continue with Email', Icons.mail_outline,
-                    AppColors.darkCard, Colors.white,
-                    () => _signInGuest()).animate().fadeIn(delay: 500.ms).slideY(begin: 0.2),
-                const SizedBox(height: 24),
-                Row(
-                  children: [
-                    const Expanded(child: Divider()),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text('or', style: Theme.of(context).textTheme.bodySmall),
-                    ),
-                    const Expanded(child: Divider()),
-                  ],
-                ),
-                const SizedBox(height: 16),
+                _featureRow(Icons.fitness_center, 'Built-in exercise library'),
+                const SizedBox(height: 32),
                 GradientButton(
-                  label: _loading ? 'Loading...' : 'Continue as Guest',
-                  icon: Icons.person_outline,
+                  label: _loading ? 'Starting...' : 'Get Started',
+                  icon: Icons.arrow_forward,
                   loading: _loading,
-                  onPressed: _signInGuest,
-                ).animate().fadeIn(delay: 600.ms),
+                  onPressed: _continueLocal,
+                ).animate().fadeIn(delay: 500.ms).slideY(begin: 0.2),
                 const SizedBox(height: 24),
-                Text('By continuing you accept our Terms & Privacy Policy',
-                    style: Theme.of(context).textTheme.bodySmall,
-                    textAlign: TextAlign.center).animate().fadeIn(delay: 800.ms),
+                Text('Personal use only • Free forever',
+                        style: Theme.of(context).textTheme.bodySmall,
+                        textAlign: TextAlign.center)
+                    .animate()
+                    .fadeIn(delay: 800.ms),
                 const SizedBox(height: 12),
               ],
             ),
@@ -86,19 +77,23 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     );
   }
 
-  Widget _authBtn(String label, IconData icon, Color bg, Color fg, VoidCallback onPressed) {
-    return SizedBox(
-      width: double.infinity,
-      height: 56,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: bg, foregroundColor: fg,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+  Widget _featureRow(IconData icon, String label) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            gradient: AppColors.primaryGradient,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: Colors.white, size: 20),
         ),
-        icon: Icon(icon),
-        label: Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
-      ),
-    );
+        const SizedBox(width: 14),
+        Expanded(
+          child: Text(label,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        ),
+      ],
+    ).animate().fadeIn(delay: 300.ms).slideX(begin: -0.1);
   }
 }

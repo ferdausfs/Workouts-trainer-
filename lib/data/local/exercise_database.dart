@@ -1,7 +1,7 @@
 import '../../domain/entities/exercise.dart';
 
 /// Sample built-in exercise database (60+ exercises across muscle groups).
-/// In production, sync from Firestore on first launch.
+/// Bundled locally — no cloud sync.
 class ExerciseDatabase {
   static final List<Exercise> all = [
     // === CHEST ===

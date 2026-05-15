@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/theme/app_theme.dart';
@@ -9,7 +8,6 @@ import 'core/services/notification_service.dart';
 import 'core/services/local_storage_service.dart';
 import 'presentation/routes/app_router.dart';
 import 'presentation/controllers/theme_controller.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,20 +26,11 @@ Future<void> main() async {
     ),
   );
 
-  // Init local storage
+  // Init local storage (Hive + SharedPreferences) — fully offline
   await Hive.initFlutter();
   await LocalStorageService.init();
 
-  // Init Firebase (gracefully handle missing config in dev)
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e) {
-    debugPrint('Firebase init skipped: $e');
-  }
-
-  // Init notifications
+  // Init local notifications (no FCM / no Play services)
   await NotificationService.instance.init();
 
   runApp(const ProviderScope(child: PulseFitApp()));

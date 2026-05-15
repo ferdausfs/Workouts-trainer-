@@ -18,7 +18,7 @@ class Exercise {
   final List<MuscleGroup> secondaryMuscles;
   final List<Equipment> equipment;
   final Difficulty difficulty;
-  final String animationAsset; // lottie/rive asset key
+  final String animationAsset; // optional asset key
   final String? videoUrl;
   final String? thumbnailUrl;
   final List<String> instructions;
