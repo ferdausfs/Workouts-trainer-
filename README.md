@@ -58,6 +58,9 @@ flutter build apk --release --split-per-abi   # smaller per-architecture APKs
 - Android **minSdk 23, targetSdk 34**
 - Java 17
 
+### Android note for `flutter_local_notifications`
+This project enables **core library desugaring** in `android/app/build.gradle` and includes `desugar_jdk_libs` because newer versions of `flutter_local_notifications` require it for Android builds.
+
 ---
 
 ## 📂 Project structure

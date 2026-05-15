@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../widgets/common/animated_gradient_background.dart';
-import '../../widgets/common/glass_card.dart';
 import '../../../core/theme/app_colors.dart';
 
 class _ChatMsg {

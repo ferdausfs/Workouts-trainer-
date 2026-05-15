@@ -56,6 +56,7 @@ Rebuild with `flutter build apk --release`.
 | Problem | Fix |
 |---------|-----|
 | `Gradle build failed` | Run `flutter clean && flutter pub get` then rebuild |
+| `flutter_local_notifications requires core library desugaring` | This repo is already fixed for it in `android/app/build.gradle`; if you copied old Android files, sync them with this version and rebuild |
 | `Java version mismatch` | Ensure JDK 17 is active (`java -version`) |
 | `flutter.sdk not set in local.properties` | Run `flutter run` once — it auto-creates `local.properties` |
 | APK too large | Use `--split-per-abi` to ship smaller per-architecture APKs |
